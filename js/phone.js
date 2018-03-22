@@ -14,9 +14,9 @@
                 docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
             }
 
-            TalkingData.onPageBegin(window.location.href);
-        };
+        }
     if (!doc.addEventListener) return;
     win.addEventListener(resizeEvt, recalc, false);
     doc.addEventListener('DOMContentLoaded', recalc, false);
+
 })(document, window);
