@@ -1,3 +1,14 @@
+(function(win){
+  var appProperties = {
+      platform: "android",
+      version: "26"
+  }
+  win.onload = function(){
+      window.talkingdata.onload(JSON.stringify(appProperties));
+      window.bubble.onPageFinished();
+  }
+})(window)
+
 window.talkingdata = {
   configData: [],
   configInfo: {
