@@ -10,7 +10,7 @@
 		<meta content="yes" name="apple-mobile-web-app-capable"/>
 		<meta http-equiv="Cache-Control" content="no-transform"/>
 		<meta http-equiv="Cache-Control" content="no-siteapp"/>
-		<title></title>
+		<title>TalkingData</title>
 		<link rel="stylesheet" href="css/public_head.css" />
 		<link rel="stylesheet" href="css/index.css" />
 		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
@@ -20,20 +20,17 @@
 	<body>
 		<!--head_line-->
 		<div class="head_line">
-			<!--<span class="head_left"><a href="#"><img src="images/back_ico.png"></a></span>-->
 			<p class="head_line_p">
 			TalkingData
 			</p>
-			<!--<span class="head_right"><a href="#"><img src="images/add_ico.png"></a></span>-->
 		</div>
+
 		<div class="new_index">
 			<div class="wd_title">
 				<img src="images/wd_ico.png">App Analytics
 			</div>
-			
+
 			<div class="wd_index">
-				
-				
 				<div class="btn_line">
 					<input id="btn_base" type="button" class="bottom_btn" value="基础统计">
 				</div>
@@ -41,10 +38,7 @@
 				<div class="btn_line">
 					<input id="btn_standard" type="button" class="bottom_btn" value="标准事件">
 				</div>
-				
-				
 			</div>
-			
 		</div>
 
 		<script>
@@ -53,12 +47,11 @@
 				TalkingData.onPageEnd(window.location.href);
 				window.location.href = 'basePage.html';
 			});
-
+			// 标准事件页面
 			$('#btn_standard').on("click",  function() {
 				TalkingData.onPageEnd(window.location.href);
 				window.location.href = 'standardPage.html';
 			});
 		</script>
-		
 	</body>
 </html>

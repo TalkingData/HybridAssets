@@ -10,7 +10,7 @@
 		<meta content="yes" name="apple-mobile-web-app-capable"/>
 		<meta http-equiv="Cache-Control" content="no-transform"/>
 		<meta http-equiv="Cache-Control" content="no-siteapp"/>
-		<title></title>
+		<title>TalkingData Base</title>
 		<link rel="stylesheet" href="css/public_head.css" />
 		<link rel="stylesheet" href="css/index.css" />
 		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
@@ -20,93 +20,119 @@
 	<body>
 		<!--head_line-->
 		<div class="head_line">
-			<!--<span class="head_left"><a href="#"><img src="images/back_ico.png"></a></span>-->
 			<p class="head_line_p">
 			TalkingData
 			</p>
-			<!--<span class="head_right"><a href="#"><img src="images/add_ico.png"></a></span>-->
 		</div>
+
 		<div class="new_index">
 			<div class="wd_title">
 				<img src="images/wd_ico.png">基础统计
 			</div>
-			
+
 			<div class="wd_index">
-				
 				<div class="wd_line">
 					<img src="images/sh_info_ico.png">
 					<input id="id" type="text" class="line_input" placeholder="id">
 				</div>
-				
+
 				<div class="wd_line">
 					<img src="images/shdz_ico.png">
 					<input id="label" type="text" class="line_input" placeholder="label">
 				</div>
-				
+
 				<div class="wd_line">
-					<img src="images/lxr_ico.png">
-					<input id="key" type="text" class="line_input" placeholder="key">
-				</div>
-				
-				<div class="wd_line">
-					<img src="images/lxdh_ico.png">
+					<img src="images/bz_ico.png">
 					<input id="value" type="text" class="line_input" placeholder="value">
 				</div>
-				
+
+				<div class="wd_line">
+					<img src="images/lxr_ico.png">
+					<input id="data_key" type="text" class="line_input" placeholder="data-key">
+				</div>
+
+				<div class="wd_line">
+					<img src="images/lxdh_ico.png">
+					<input id="data_value" type="text" class="line_input" placeholder="data-value">
+				</div>
+
 				<div class="btn_line">
 					<input id="btn_onevent" type="button" class="bottom_btn" value="添加自定义事件">
 				</div>	
 			</div>
 
 			<div class="wd_index">
-				
 				<div class="wd_line">
 					<img src="images/sh_info_ico.png">
-					<input id="tx_deviceid" type="text" class="line_input" placeholder="eventid">
+					<input id="tx_deviceid" type="text" class="line_input" placeholder="deviceid">
 				</div>
 				
 				<div class="btn_line">
 					<input id="btn_deviceid" type="button" class="bottom_btn" value="获取 device id">
 				</div>	
 			</div>
+
+			<div class="wd_index">
+				<div class="wd_line">
+					<img src="images/sh_info_ico.png">
+					<input id="tx_oaid" type="text" class="line_input" placeholder="oaid">
+				</div>
+				
+				<div class="btn_line">
+					<input id="btn_oaid" type="button" class="bottom_btn" value="获取 oaid">
+				</div>	
+			</div>
+
 			<div class="btn_line">
-					<input id="btn_back" type="button" class="bottom_btn" value="返回">
+				<input id="btn_back" type="button" class="bottom_btn" value="返回">
 			</div>
 		</div>
 
 		<script>
-			
 			$('#btn_onevent').on('click', function(){
 				var eventId = $('#id').val();
 				var eventLabel = $('#label').val();
-				var eventKey = $('#key').val();
 				var eventValue = $('#value').val();
-				
+				var dataKey = $('#data_key').val();
+				var dataValue = $('#data_value').val();
+
 				if(!eventId || eventId == "") {
-					console.log("自定义事件 id 不允许为空")
-					return ;
+					console.log("自定义事件 id 不允许为空");
+					return;
+				}
+				if (dataKey && dataKey.length > 0 && dataValue && dataValue.length) {
+					var data={};
+					data[dataKey]=dataValue;
+				}
+				if (eventValue && eventValue.length > 0) {
+					TalkingData.onEventWithValue(eventId, eventLabel, data, eventValue*1);
+					return;
+				}
+				if (data) {
+					TalkingData.onEventWithParameters(eventId, eventLabel, data);
+					return;
 				}
 				if(eventLabel && eventLabel.length > 0) {
-					if (eventKey && eventKey.length > 0 && eventValue && eventValue.length) {
-						var data = {
-							key: eventKey,
-							value: eventValue
-						};
-						TalkingData.onEventWithParameters(eventId, eventLabel, data)
-						return ;
-					}
 					TalkingData.onEventWithLabel(eventId, eventLabel);
 					return;
 				}
 				TalkingData.onEvent(eventId);
 			});
-			
-            var getdeviceid = function(deviceid){
-                $('#tx_deviceid').val(deviceid);
-            }
-            
+
+			var getdeviceid = function(deviceid){
+				$('#tx_deviceid').val(deviceid);
+			}
+
 			$('#btn_deviceid').on('click', function(){
 				TalkingData.getDeviceId(getdeviceid);
+			});
+
+			var getoaid = function(oaid){
+				$('#tx_oaid').val(oaid);
+			}
+
+			$('#btn_oaid').on('click', function(){
+				TalkingData.getOAID(getoaid);
 			});
 
 			$('#btn_back').on("click",  function() {
