@@ -48,7 +48,12 @@
 
 				<div class="wd_line">
 					<img src="images/qyyzf_ico.png">
-					<input id="pay_orders" type="button" class="line_btn" value="成功支付订单">
+					<input id="pay_orders" type="button" class="line_btn" value="支付订单">
+				</div>
+
+				<div class="wd_line">
+					<img src="images/sh_info_ico.png">
+					<input id="cancel_orders" type="button" class="line_btn" value="取消订单">
 				</div>
 
 				<div class="wd_line">
@@ -86,17 +91,15 @@
 			});
 			// 下单
 			$('#orders').on('click', function () {
-				var order = TalkingDataOrder.createOrder("orderId123", 899800, "CNY");
-				order.addItem("007", "家电", "电视", 499900, 1);
-				order.addItem("008", "家电", "冰箱", 399900, 1);
-				TalkingData.onPlaceOrder("user001", order);
+				TalkingData.onPlaceOrder("orderId123", 899800, "CNY");
 			});
-			// 成功支付订单
+			// 支付订单
 			$('#pay_orders').on('click', function () {
-				var order = TalkingDataOrder.createOrder("orderId123", 899800, "CNY");
-				order.addItem("007", "家电", "电视", 499900, 1);
-				order.addItem("008", "家电", "冰箱", 399900, 1);
-				TalkingData.onOrderPaySucc("user001", "Alipay", order);
+				TalkingData.onOrderPaySucc("orderId123", 899800, "CNY", "Alipay");
+			});
+			// 取消订单
+			$('#cancel_orders').on('click', function () {
+				TalkingData.onCancelOrder("orderId123", 899800, "CNY");
 			});
 			// 浏览商品
 			$('#show_goods').on('click', function () {
